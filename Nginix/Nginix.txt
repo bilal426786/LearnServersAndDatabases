@@ -1,0 +1,81 @@
+#download Stable version of Nginix from official website for windows https://nginx.org/en/download.html
+
+placed the extracted rar inside C/Nginix
+
+go to cmd with administrator accesses at C/Nginix and run the command below
+
+start Nginx
+nginx -s stop
+nginx -s reload
+nginx -s quit
+
+#if apache and Nginix both are running it conflicts due to localhost port 80 now ones port should be change in my case 
+# i am changing the port of nginix C/Nginix/conf/nginix.conf changing port 80 to 81
+
+
+#installing Nginix as a window service through WinSW not NSSM because WinSw is better then NSSM
+#because Nginix is not comming with window service manager by default as apache comes
+
+create service folder inside C/nginix/ 
+Download the winsw-service.exe file from github and rename it to nginix-service.exe for better understanding and placed it in C/Nginix/service
+
+now create a file named "nginx-service.xml" inside C/Nginix/service
+place both the service.exe and xml file inside service folder 
+
+and place the code below
+
+-------------------------------------------------------------------
+
+<service>
+  <id>nginx</id>
+  <name>NGINX Web Server</name>
+  <description>NGINX running as a Windows Service using WinSW</description>
+
+  <!-- WinSW should run nginx.exe, NOT itself -->
+  <executable>C:\Nginx\nginx.exe</executable>
+
+  <!-- Start nginx normally -->
+  <arguments>-p C:\Nginx -c conf\nginx.conf</arguments>
+
+  <!-- Correct working directory -->
+  <workingdirectory>C:\Nginx</workingdirectory>
+
+  <!-- Restart automatically if nginx exits -->
+  <onfailure action="restart" delay="5 sec" />
+
+  <logpath>C:\Nginx\logs</logpath>
+  <log mode="roll-by-size">
+    <sizeThreshold>10240</sizeThreshold>
+    <keepFiles>5</keepFiles>
+  </log>
+</service>
+
+
+
+
+-------------------------------------------------------------------
+
+now go to C/nginix/service and open cmd as administrator access
+
+and run command below
+
+nginx-service.exe install
+service will install 
+
+
+after installation run command 
+net start nginx
+
+
+nginx-service.exe uninstall
+nginx-service.exe restart
+
+
+#Sometimes you stop nginix but it still running because its workers are not stoped
+#to kill those worker 
+
+taskkill /IM nginx.exe /F
+
+#to check if any worker is running
+
+tasklist /FI "IMAGENAME eq nginx.exe"
