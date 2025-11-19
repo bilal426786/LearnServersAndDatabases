@@ -6,14 +6,28 @@ cd C:\Apache24\bin
 
 httpd.exe -k install -n "Apache24"
 
+----------------------------------------------------
 
-#php configuration in apache C/Apache24/conf/httpd.conf
+#php configuration in apache C/Apache24/conf/httpd.conf for simple php not fastCGI
 
 # php connect to apache
 
 LoadModule php_module "C:/Users/BilalPersonal/.pvm/versions/php-8.4.12-Win32-vs17-x64/php8apache2_4.dll"
 PHPIniDir "C:/Users/BilalPersonal/.pvm/versions/php-8.4.12-Win32-vs17-x64/"
 AddType application/x-httpd-php .php
+
+------------------------------------------------------
+
+
+---------------------------------------------------------
+#For fastCGI in apache download an apache module for fastCGI
+
+download fastCGI module from apache website named "mod_fcgid-2.3.10-win64-VS17.zip"
+extract the files and take only one file which is the actual module named "mod_fcgid.so"
+place this file to C/Apache24/modules/
+
+---------------------------------------------------------
+#php configuration in apache C/Apache24/conf/httpd.conf for fastCGI
 
 # php connected to apache using fcgi in windows
 
@@ -40,9 +54,7 @@ AddType application/x-httpd-php .php
 #     FcgidWrapper "C:/Users/BilalPersonal/.pvm/versions/php-8.4.12-Win32-vs17-x64/php-cgi.exe" .php
 # </Directory>
 
-
-
-
+---------------------------------------------------------
 
 # Phpinfo check inside apache C/Apache24/htdocs/phpinfo.php
 
@@ -53,6 +65,7 @@ write below code to get phpinfo
 <?php phpinfo(); ?>
 
 hit through localhost/phpinfo.php
+---------------------------------------------------------
 
 #Php.ini configuration for Apache24
 
@@ -77,6 +90,9 @@ extension=openssl
 extension=pdo_mysql
 extension=pdo_sqlite
 extension=pgsql
+
+---------------------------------------------------------
+#Php.ini configuration for Apache24 with fastCGI
 
 #if using apache for fastCGI
 cgi.force_redirect = 0
