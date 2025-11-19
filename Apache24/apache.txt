@@ -1,0 +1,83 @@
+# Commands
+
+Go back to the bin folder:
+
+cd C:\Apache24\bin
+
+httpd.exe -k install -n "Apache24"
+
+
+#php configuration in apache C/Apache24/conf/httpd.conf
+
+# php connect to apache
+
+LoadModule php_module "C:/Users/BilalPersonal/.pvm/versions/php-8.4.12-Win32-vs17-x64/php8apache2_4.dll"
+PHPIniDir "C:/Users/BilalPersonal/.pvm/versions/php-8.4.12-Win32-vs17-x64/"
+AddType application/x-httpd-php .php
+
+# php connected to apache using fcgi in windows
+
+# LoadModule fcgid_module modules/mod_fcgid.so
+
+# <IfModule fcgid_module>
+#     AddHandler fcgid-script .php
+#     # FcgidWrapper "C:/Users/BilalPersonal/.pvm/versions/php-8.4.12-Win32-vs17-x64/php-cgi.exe" .php
+#     Options +ExecCGI
+# </IfModule>
+
+
+# # FcgidMaxRequestsPerProcess 500
+# # FcgidMaxProcesses 5
+# # FcgidIdleTimeout 60
+# # FcgidConnectTimeout 20
+
+# <Directory "C:/Apache/Apache24/htdocs">
+#     Options Indexes FollowSymLinks ExecCGI
+#     AllowOverride All
+#     Require all granted
+
+#     AddHandler fcgid-script .php
+#     FcgidWrapper "C:/Users/BilalPersonal/.pvm/versions/php-8.4.12-Win32-vs17-x64/php-cgi.exe" .php
+# </Directory>
+
+
+
+
+
+# Phpinfo check inside apache C/Apache24/htdocs/phpinfo.php
+
+make a file phpinfo.php inside C/Apache24/htdocs/phpinfo.php
+
+write below code to get phpinfo
+
+<?php phpinfo(); ?>
+
+hit through localhost/phpinfo.php
+
+#Php.ini configuration for Apache24
+
+enable one extention_dir either ext or the full address full address for php through pvm but i think it really dosn't matter
+
+ extension_dir = "C:/Users/BilalPersonal/.pvm/versions/php-8.4.12-Win32-vs17-x64/ext"
+; On windows:
+; extension_dir = "ext"
+
+
+
+enable these extentions
+
+extension=curl
+extension=ftp
+extension=fileinfo
+extension=gd
+extension=mbstring
+extension=mysqli
+extension=odbc
+extension=openssl
+extension=pdo_mysql
+extension=pdo_sqlite
+extension=pgsql
+
+#if using apache for fastCGI
+cgi.force_redirect = 0
+fastcgi.impersonate = 1

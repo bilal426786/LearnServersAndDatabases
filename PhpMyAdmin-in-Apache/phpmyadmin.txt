@@ -1,0 +1,24 @@
+
+#Configuration phpmyadmin
+inside C/Apache24/htdocs/phpmyadmin/
+
+there is a file named config.sample.inc.php rename it to config.inc.php and remove sample word from title
+
+inside C/Apache24/htdocs/phpmyadmin/config.inc.php
+
+find the line below
+
+$cfg['blowfish_secret'] = '';
+
+write random string in it like
+
+$cfg['blowfish_secret'] = 'sadasdkjfhasdfkjasdh847546'; 
+
+and allow without password to true if your sql have no password (if mysql have root as id and blank password then enable it to accept without password)
+$cfg['Servers'][$i]['AllowNoPassword'] = true;
+
+
+#placed phpmyadmin extracted zip inside C/Apache24/htdocs/phpmyadmin
+
+
+

@@ -1,0 +1,23 @@
+mysqld --initialize-insecure --basedir="C:\MySQL" --datadir="C:\MySQL\data"
+
+mysqld --initialize-insecure --basedir="C:\MySQL" --datadir="C:\MySQL\data"
+
+mysqld --install MySQL --defaults-file="C:\MySQL\my.ini"
+
+net start MySQL
+
+net stop MySQL
+
+sc qc MySQL
+sc delete MySQL
+sc qc MySQL
+
+
+
+#Configuration my.ini c/Mysql/my.ini
+
+[mysqld]
+basedir=C:/MySQL
+datadir=C:/MySQL/data
+port=3306
+

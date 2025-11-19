@@ -1,0 +1,36 @@
+
+#Commands to Initialize mariadb and service
+
+"C:\MariaDB\bin\mariadb-install-db.exe" --datadir="C:/MariaDB/data"
+
+"C:\MariaDB\bin\mysqld.exe" --install MariaDB --defaults-file="C:\MariaDB\my.ini"
+
+net start MariaDB
+
+net stop MariaDB
+
+sc delete MariaDB
+
+sc qc MariaDB
+
+
+#Configuration C/MariaDB/my.ini
+
+[mysqld]
+bind-address=127.0.0.1
+port=3307
+datadir=C:/MariaDB/data
+plugin-dir=C:/MariaDB/lib/plugin
+innodb_buffer_pool_size=2035M
+log_error=C:/MariaDB/data/mariadb.err
+
+
+#Host issue
+
+C/windows/system32/drivers/etc/Host
+
+uncomment 
+
+# 127.0.0.1       localhost
+# ::1             localhost
+
