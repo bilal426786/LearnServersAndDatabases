@@ -1,0 +1,77 @@
+
+Create a folder in C/WindowServiceManager/ to manage services for phpfpm, nginx etc.
+
+
+create a file inside this service svc.cmd to use cmd anywher and can install and work with the services 
+created with the winsw wrapper file
+
+inside C/WindowServicesManager/svc.cmd 
+
+write the code below
+--------------------------------
+
+@echo off
+set svc=%1
+set cmd=%2
+
+"C:\WindowServicesManager\%svc%\%svc%.exe" %cmd%
+
+
+---------------------------------
+
+now we can access to any service file using svc command
+
+
+
+
+
+---------------------------------------------------------------------
+### Manage service for phpfpm8412
+
+inside C/WindowServiceManager/
+create a folder phpfpm8412 for php version 8.4.12
+copy the winSw.exe service wrapper file downloaded from github and placed inside this folder 
+and rename it to phpfpm8412.exe
+
+create a xml file inside the same folder and name it to phpfpm8412.xml and placed the code below to it
+
+-------------------------------
+<service>
+  <id>phpfpm8412</id>
+  <name>PHP 8.4.12 FastCGI</name>
+  <description>PHP FastCGI service running php-cgi.exe for PHP 8.4.12</description>
+
+  <!-- Path to php-cgi.exe -->
+  <executable>C:\Users\BilalPersonal\.pvm\versions\php-8.4.12-Win32-vs17-x64\php-cgi.exe</executable>
+
+  <!-- FastCGI listen port -->
+  <arguments>-b 127.0.0.1:9084</arguments>
+
+  <!-- Working directory -->
+  <workingdirectory>C:\Users\BilalPersonal\.pvm\versions\php-8.4.12-Win32-vs17-x64</workingdirectory>
+
+  <!-- Auto restart if fail -->
+  <onfailure action="restart" delay="5 sec"/>
+
+  <!-- Logs -->
+  <logpath>C:\WindowServicesManager\phpfpm8412\logs</logpath>
+<log mode="roll-by-size" sizeThreshold="10240" keepFiles="5" />
+
+</service>
+-----------------------------
+
+
+this will create phpfpm8412 service not use commands of svc
+
+svc phpfpm8412 install
+svc phpfpm8412 uninstall
+svc phpfpm8412 start OR net start phpfpm8412
+svc phpfpm8412 stop  OR net stop phpfpm8412
+
+
+IP Configuration
+
+ <arguments>-b 127.0.0.1:9084</arguments>
+ make sure in nginx have route to this ip of php fcgi to connect workers
+
+

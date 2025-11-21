@@ -1,0 +1,22 @@
+
+Create a folder in C/WindowServiceManager/ to manage services for phpfpm, nginx etc.
+
+
+create a file inside this service svc.cmd to use cmd anywher and can install and work with the services 
+created with the winsw wrapper file
+
+inside C/WindowServicesManager/svc.cmd 
+
+write the code below
+--------------------------------
+
+@echo off
+set svc=%1
+set cmd=%2
+
+"C:\WindowServicesManager\%svc%\%svc%.exe" %cmd%
+
+
+---------------------------------
+
+now we can access to any service file using svc command
