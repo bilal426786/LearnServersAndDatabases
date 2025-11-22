@@ -298,3 +298,60 @@ docker-compose.yml
 
 // we should ignore all above files to build inside our image we didn't need them just ignore it
 // we can delete node_module during build time but not necessary we can ignore it using .dockerignore
+
+
+#Docker Volume
+
+// we use -v flag to attache a volume to our container and when we delete or restar the container it will not be deleted it will persist
+
+docker run -it -v /user/bilalpersonal/desktop/data:/test/data ubuntu
+
+// we should provide absolute path of our host machine mean complete path
+// and the relative path of our container like /test/data 
+// this will create a volume and attach to the container we are running
+
+// And to do this through yaml file we write
+
+volume:
+    - HOST_ABSOLUTE_DIR:CONTAINER_DIR
+    // For mongo db (documentation)
+    - /users/bilalpersonal/desktop/data:/mongo/db
+
+
+// to check custom volume we created
+
+docker volume ls
+
+// to Create a custom Volume
+
+docker volume create VOLUME_NAME
+
+// during creating of named volume we didn't specified the path of the volume where we want to create on host maching
+// so by default docker will create this volume on default paths different for mac and win
+// for Mac or Linux /var/lib/docker/volumes
+// and for windows C:\ProgramData\Docker\volumes
+
+// and to Remove a volume
+
+docker volume rm VOLUME_NAME
+
+// To Connect the Custom Named Volume to any container we have three methods
+// Named Volume
+docker run -v VOLUME_NAME:CONTAINER_DIR
+// if the VOLUME_NAME volume is created already in docker it will attach if not found then it will create and attach
+// Anonymous Volume
+docker run -v MOUNT_PATH
+// in this we just pass the path of container dir and a random vol is create and assigned we use this for temp vol and later del them with prune command
+// Bind Mount
+docker run -v HOST_DIR:CONT_DIR
+// in bind care host maching is managing the volume but in mount or named volume docker do this
+
+//Docker Volumes Prune
+
+docker volume prune 
+// this will delete anonymus volume those are unused
+
+#Docker Network Drivers
+
+// Bydefault bridge dirver is connected to the networks
+
